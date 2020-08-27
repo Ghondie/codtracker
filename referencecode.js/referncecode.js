@@ -1,26 +1,3 @@
-const express = require('express');
-const router = express.Router();
-const Post = require('../models/Post');
-const API = require('call-of-duty-api')({
-    platform: "battle"
-});
-const Match = require('../models/match')
-require('dotenv/config');
-
-
-
-router.post('/cod/', async (req, res) => {
-    await API.login(process.env.EMAIL, process.env.PASSWORD)
-    const playerArr = req.body
-    const scoreArr = []
-    for (item of playerArr) {
-        scoreArr.push({
-            username: item,
-            data: await API.MWBattleData(item)
-        });
-    }
-    res.json(scoreArr)
-
     // const pdata = {}
     // console.log("req.body", req.body)
     // API.login(process.env.EMAIL, process.env.PASSWORD).then((output) => {
@@ -45,10 +22,13 @@ router.post('/cod/', async (req, res) => {
     //             })
     //             res.json(pdata);
     //         })
-})
 
 
-// });
+
+
+
+
+    // });
 
 
 // router.post('/cod', (req, res) => {
@@ -169,76 +149,9 @@ router.post('/cod/', async (req, res) => {
 //  when updating use UPDATE/post
 
 
-// gets back all
-router.get('/', async (req, res) => {
-    try {
-        const posts = await Post.find();
-        res.json(posts);
-    } catch (err) {
-        res.json({
-            message: err
-        });
-    }
-});
-// submits post
-router.post('/', async (req, res) => {
-    const post = new Post({
-        title: req.body.title,
-        description: req.body.description
-    });
-    try {
-        const savedPost = await post.save()
-        res.json(savedPost);
-    } catch (err) {
-        res.json({
-            message: err
-        });
-    }
-});
-// specfic post
-router.get('/:postId', async (req, res) => {
-    try {
-        const post = await Post.findById(req.params.postId);
-        res.json(post);
-    } catch (err) {
-        res.json({
-            message: err
-        });
-    }
-});
 
-// Delete post
-router.delete('/:postId', async (req, res) => {
-    try {
-        const removedPost = await Post.remove({
-            _id: req.params.postId
-        })
-        res.json(removedPost);
-    } catch (err) {
-        res.json({
-            message: err
-        });
-    }
-});
 
-// Update Post
-router.patch('/:postId', async (req, res) => {
-    try {
-        const updatedPost = await Post.updateOne({
-            _id: req.params.postId
-        }, {
-            $set: {
-                title: req.body.title
-            }
-        });
-        res.json(updatedPost);
-    } catch (err) {
-        res.json({
-            message: err
-        });
-    }
-});
-module.exports = router;
+
 // API.MWBattleData('Ghondie#1663').then(data => {
 //     console.log(data);
 //     console.log(err);
@@ -319,3 +232,27 @@ module.exports = router;
 // }).catch((err) => {
 //     console.log(err);
 // });
+
+
+
+
+
+
+
+
+ // return {
+        //     player: obj.username,
+        //     kills: brall.kills,
+        //     deaths: brall.deaths,
+        //     downs: brall.downs,
+        //     revives: brall.revives,
+        // }
+
+
+
+
+
+
+
+
+
